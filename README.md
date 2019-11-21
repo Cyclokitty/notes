@@ -13,4 +13,4 @@ Click buttons in React Native Android App and hear the notes played on a speaker
 1. Make the layout look nicer.
 1. Split up the code.
 1. MOR REUSABLE COMPONENTS
-1. More complex Arduino project because a LED that only turns on and off isn't terribly interesting
+1. Do the notes play as long as the note button in the app is pressed? 
