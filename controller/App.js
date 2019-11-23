@@ -10,7 +10,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
-import _ from 'lodash';
+import NoteButton from './components/NoteButton';
 
 const App = () => {
 
@@ -113,11 +113,11 @@ const App = () => {
     }
   };
 
-  const onOffButton = () => {
-    BluetoothSerial.write('T')
+  const onOffButton = (note) => {
+    BluetoothSerial.write(note)
     .then((res) => {
       console.log(res);
-      console.log('Successfully wrote to device');
+      console.log(`Successfully wrote to device: ${note}`);
       setConnected(true);
     })
     .catch((err) => console.log(err.message));
@@ -148,11 +148,20 @@ const App = () => {
         renderItem={(item => renderItem(item))}
       />
 
-      <Button
-        onPress={() => onOffButton()}
-        title='Switch on/off'
-        color='#4F5D2F'
-      />
+      <NoteButton btnText='C' onPress={() => onOffButton('C')}/>
+      <NoteButton btnText='C#' onPress={() => onOffButton('c')}/>
+      <NoteButton btnText='D' onPress={() => onOffButton('D')}/>
+      <NoteButton btnText='D#' onPress={() => onOffButton('d')}/>
+      <NoteButton btnText='E' onPress={() => onOffButton('E')}/>
+      <NoteButton btnText='F' onPress={() => onOffButton('F')}/>
+      <NoteButton btnText='F#' onPress={() => onOffButton('f')}/>
+      <NoteButton btnText='G' onPress={() => onOffButton('G')}/>
+      <NoteButton btnText='G#' onPress={() => onOffButton('g')}/>
+      <NoteButton btnText='A' onPress={() => onOffButton('A')}/>
+      <NoteButton btnText='A#' onPress={() => onOffButton('a')}/>    
+      <NoteButton btnText='B' onPress={() => onOffButton('B')}/>
+      <NoteButton btnText='No Note' onPress={() => onOffButton('0')}/>
+
     </View>
   )
 }
