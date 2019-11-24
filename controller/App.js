@@ -20,6 +20,21 @@ const App = () => {
   const [unpairedDevices, setUnpairedDevices] = useState([]);
   const [connected, setConnected] = useState(false);
 
+  const keyboardButtonList = [
+    {stringName: 'C', fnArg: 'C'},
+    {stringName: 'C#', fnArg: 'c'},
+    {stringName: 'D', fnArg: 'D'},
+    {stringName: 'D#', fnArg: 'd'},
+    {stringName: 'E', fnArg: 'E'},
+    {stringName: 'F', fnArg: 'F'},
+    {stringName: 'G', fnArg: 'G'},
+    {stringName: 'G#', fnArg: 'g'},
+    {stringName: 'A', fnArg: 'A'},
+    {stringName: 'A#', fnArg: 'a'},   
+    {stringName: 'B', fnArg: 'B'},
+    {stringName: 'No Note', fnArg: '0'},
+  ];
+
   useEffect(() => {
     Promise.all([
       BluetoothSerial.isEnabled(),
@@ -123,6 +138,12 @@ const App = () => {
     .catch((err) => console.log(err.message));
   };
 
+  const keyboardButtons =  keyboardButtonList.map(({stringName, fnArg}) => {
+    return (
+      <NoteButton btnText={stringName} onPress={() => onOffButton(fnArg)}/>
+    )
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>
@@ -148,20 +169,10 @@ const App = () => {
         renderItem={(item => renderItem(item))}
       />
 
-      <NoteButton btnText='C' onPress={() => onOffButton('C')}/>
-      <NoteButton btnText='C#' onPress={() => onOffButton('c')}/>
-      <NoteButton btnText='D' onPress={() => onOffButton('D')}/>
-      <NoteButton btnText='D#' onPress={() => onOffButton('d')}/>
-      <NoteButton btnText='E' onPress={() => onOffButton('E')}/>
-      <NoteButton btnText='F' onPress={() => onOffButton('F')}/>
-      <NoteButton btnText='F#' onPress={() => onOffButton('f')}/>
-      <NoteButton btnText='G' onPress={() => onOffButton('G')}/>
-      <NoteButton btnText='G#' onPress={() => onOffButton('g')}/>
-      <NoteButton btnText='A' onPress={() => onOffButton('A')}/>
-      <NoteButton btnText='A#' onPress={() => onOffButton('a')}/>    
-      <NoteButton btnText='B' onPress={() => onOffButton('B')}/>
-      <NoteButton btnText='No Note' onPress={() => onOffButton('0')}/>
-
+      <View style={styles.keyboardBtns}>
+        {keyboardButtons}
+      </View>
+      
     </View>
   )
 }
@@ -175,7 +186,7 @@ const styles = StyleSheet.create({
   toolbar: {
     paddingTop: 30,
     paddingBottom: 30,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   toolbarButton: {
     width: 50,
@@ -190,12 +201,18 @@ const styles = StyleSheet.create({
   },
   deviceName: {
     fontSize: 17,
-    color: '#423629'
+    color: '#423629',
   },
   deviceNameWrap: {
     margin: 10,
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
+  keyboardBtns: {
+    flex: 1,
+    flexWrap: 'wrap',
+    margin: 10,
+    alignContent: 'center',
+  },
 });
 
 export default App;
